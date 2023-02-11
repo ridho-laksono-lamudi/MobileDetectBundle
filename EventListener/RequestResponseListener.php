@@ -240,7 +240,7 @@ class RequestResponseListener
                     unset($queryParams[$this->deviceView->getSwitchParam()]);
                 }
                 if (sizeof($queryParams) > 0) {
-                    $redirectUrl .= '?'.Request::normalizeQueryString(http_build_query($queryParams, null, '&'));
+                    $redirectUrl .= '?'.Request::normalizeQueryString(http_build_query($queryParams, '', '&'));
                 }
             } else {
                 $redirectUrl = $this->getCurrentHost($request);
@@ -289,7 +289,7 @@ class RequestResponseListener
                 $queryParams = $request->query->all();
                 $queryParams[$this->deviceView->getSwitchParam()] = $platform;
 
-                return rtrim($this->redirectConf[$platform]['host'], '/').$request->getPathInfo().'?'.Request::normalizeQueryString(http_build_query($queryParams, null, '&'));
+                return rtrim($this->redirectConf[$platform]['host'], '/').$request->getPathInfo().'?'.Request::normalizeQueryString(http_build_query($queryParams, '', '&'));
             } elseif (self::REDIRECT_WITHOUT_PATH === $routingOption) {
                 // Make sure to hint at the device override, otherwise infinite loop
                 // redirections may occur if different device views are hosted on
